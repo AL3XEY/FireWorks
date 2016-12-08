@@ -1,5 +1,5 @@
-#ifndef DEF_SCENEOPENGL
-#define DEF_SCENEOPENGL
+#ifndef DEF_OPENGLWINDOW
+#define DEF_OPENGLWINDOW
 
 // Includes 
 #include <GLEW/glew.h>
@@ -7,12 +7,12 @@
 #include <iostream>
 #include <string>
 
-
+const int maxFPS = 60;
 // Classe
-class OpenGlWindow {
+class SDL_GLEW_Window {
 public:
-	OpenGlWindow(std::string titreFenetre, int largeurFenetre, int hauteurFenetre);
-	~OpenGlWindow();
+	SDL_GLEW_Window(std::string titreFenetre, int largeurFenetre, int hauteurFenetre);
+	~SDL_GLEW_Window();
 
 	bool initialiserFenetre();
 	bool initGL();
@@ -25,7 +25,7 @@ private:
 
 	SDL_Window* m_fenetre;
 	SDL_GLContext m_contexteOpenGL;
-	SDL_Event m_evenements;
+	SDL_Event m_evenements;	
 
 	void drawTest();
 };

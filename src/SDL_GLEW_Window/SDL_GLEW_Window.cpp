@@ -1,7 +1,8 @@
-#include "OpenGLWindow.hpp"
+#include "SDL_GLEW_Window.hpp"
+#include "../Modes/DemoMode.hpp"
 
 // Constructor
-OpenGlWindow::OpenGlWindow(std::string titreFenetre, int largeurFenetre, int hauteurFenetre) : 
+SDL_GLEW_Window::SDL_GLEW_Window(std::string titreFenetre, int largeurFenetre, int hauteurFenetre) :
 	m_titreFenetre(titreFenetre), 
 	m_largeurFenetre(largeurFenetre),
 	m_hauteurFenetre(hauteurFenetre), 
@@ -10,7 +11,7 @@ OpenGlWindow::OpenGlWindow(std::string titreFenetre, int largeurFenetre, int hau
 }
 
 // Destructor
-OpenGlWindow::~OpenGlWindow() {
+SDL_GLEW_Window::~SDL_GLEW_Window() {
 	SDL_GL_DeleteContext(m_contexteOpenGL);
 	SDL_DestroyWindow(m_fenetre);
 	SDL_Quit();
@@ -19,7 +20,7 @@ OpenGlWindow::~OpenGlWindow() {
 // Methods
 
 // InitialiserFenetre
-bool OpenGlWindow::initialiserFenetre() {
+bool SDL_GLEW_Window::initialiserFenetre() {
 	// Initialisation de la SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -59,7 +60,7 @@ bool OpenGlWindow::initialiserFenetre() {
 	return true;
 }
 
-bool OpenGlWindow::initGL() {
+bool SDL_GLEW_Window::initGL() {
 	// On initialise GLEW
 	GLenum initialisationGLEW(glewInit());
 	if (initialisationGLEW != GLEW_OK)
@@ -74,30 +75,51 @@ bool OpenGlWindow::initGL() {
 	return true;
 }
 
-void OpenGlWindow::bouclePrincipale()
+void SDL_GLEW_Window::bouclePrincipale()
 {
+	Uint32 dt = 0;					// delta time in ms
+	Uint32 clock = SDL_GetTicks();	// last time sample in ms
+
+	srand(static_cast <unsigned> (clock)); // Sets the random seed (for future rand())
+
+	DemoMode demoMode; // Initialize a SandBox Mode
 
 	// Boucle principale
 	bool continueLoop = true;
 	while (continueLoop)
 	{
 		// Gestion des évènements
-		SDL_WaitEvent(&m_evenements);
+		//SDL_WaitEvent(&m_evenements);
 		if (m_evenements.window.event == SDL_WINDOWEVENT_CLOSE)
 			continueLoop = false;
 
-		// Nettoyage de l'écran
-		glClear(GL_COLOR_BUFFER_BIT);
+		// Limite le Frame Rate à maxFPS
+		clock = SDL_GetTicks(); //updates the clock to check the next delta time
+		
+
+		// Update values
+		demoMode.update();
+
+		//std::cout << "tick" << std::endl;
+		dt = SDL_GetTicks() - clock; //get the current delta time for this frame
+
+		if (dt < 1000 / maxFPS) // if timerFps is < 16.6666...7 ms (meaning it loaded the frame too fast)
+		{
+			//std::cout << "delai" << std::endl;
+			SDL_Delay((1000 / maxFPS) - dt); //delay the frame to be in time
+		}
 
 		// Rendering
-		drawTest();
+		//sbMode.drawTest();
+		demoMode.drawScene();
+		//std::cout << "tack" << std::endl;
 
 		// Actualisation de la fenêtre
 		SDL_GL_SwapWindow(m_fenetre);
 	}
 }
 
-void OpenGlWindow::drawTest() {
+void SDL_GLEW_Window::drawTest() {
 	double vertices[] = { -0.5, -0.5, 0.2, 0.5, 0.5, -0.5 };
 	glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, 0, vertices);
 	glEnableVertexAttribArray(0);

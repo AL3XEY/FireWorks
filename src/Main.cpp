@@ -1,9 +1,9 @@
-#include "OpenGlWindow/OpenGlWindow.hpp"
+#include "SDL_GLEW_Window/SDL_GLEW_Window.hpp"
 
 int main(int argc, char **argv) {
 	// Création de la sène
 
-	OpenGlWindow window("FireWorks", 800, 600);
+	SDL_GLEW_Window window("FireWorks", 800, 600);
 
 	// Initialisation de la scène
 	if (window.initialiserFenetre() == false)
@@ -11,7 +11,6 @@ int main(int argc, char **argv) {
 
 	if (!window.initGL())
 		exit(EXIT_FAILURE);
-
 
 	// Boucle Principale
 	window.bouclePrincipale();
