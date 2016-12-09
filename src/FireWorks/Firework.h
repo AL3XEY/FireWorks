@@ -7,8 +7,9 @@
 #include <GL/gl.h>
 #include <vector>
 #include "Particle.h"
+#include "AbstractFirework.h"
 
-class Firework
+class Firework : public AbstractFirework
 {
 	public:
 		double x, y, z;

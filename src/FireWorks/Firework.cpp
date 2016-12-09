@@ -110,7 +110,7 @@ void Firework::explode()
 
 void Firework::draw()
 {
-	glColor3f(r, g, b);
+	glColor3d(r, g, b);
 	if (isLaunched)
 	{
 		if (!isExploding) {
