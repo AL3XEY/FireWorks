@@ -11,12 +11,9 @@
 class Firework
 {
 	public:
-		double x;
-		double y;
-		double z;
-		double xSpeed;
-		double ySpeed;
-		double zSpeed;
+		double x, y, z;
+		double xSpeed, ySpeed, zSpeed;
+		double r, g, b, a;
 
 		Firework();
 		void initialise();

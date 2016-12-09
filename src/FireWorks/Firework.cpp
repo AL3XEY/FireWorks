@@ -33,6 +33,10 @@ void Firework::initialise()
 	ySpeed = LO_launchYSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_launchYSpeed - LO_launchYSpeed)));
 	zSpeed = 0.0;
 
+	r = static_cast <double> (rand()) / (static_cast <double> (RAND_MAX));
+	g = static_cast <double> (rand()) / (static_cast <double> (RAND_MAX));
+	b = static_cast <double> (rand()) / (static_cast <double> (RAND_MAX));
+
 	delayBeforeLaunch = LO_delayBeforeLaunch + static_cast <int> (rand()) / (static_cast <int> (RAND_MAX / (HI_delayBeforeLaunch - LO_delayBeforeLaunch)));
 	delayBeforeExplosion = LO_delayBeforeExplosion + static_cast <int> (rand()) / (static_cast <int> (RAND_MAX / (HI_delayBeforeExplosion - LO_delayBeforeExplosion)));
 	isLaunched = false;
@@ -106,6 +110,7 @@ void Firework::explode()
 
 void Firework::draw()
 {
+	glColor3f(r, g, b);
 	if (isLaunched)
 	{
 		if (!isExploding) {
