@@ -13,7 +13,7 @@ const int Firework::LO_delayBeforeLaunch = 0;
 const int Firework::HI_delayBeforeExplosion = 350;
 const int Firework::LO_delayBeforeExplosion = 150;
 const int Firework::nbParticlesExplosion = 50;
-const double Firework::explosionParticleSpeed = 0.004;
+const double Firework::explosionParticleSpeed = 0.01;
 const int Firework::lifespanExplosionParticles = 50;
 
 // Constructor implementation
@@ -28,10 +28,10 @@ void Firework::initialise()
 {
 	x = LO_X + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_X - LO_X)));
 	y = -1.0;
+	z = LO_X + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_X - LO_X)));
 	xSpeed = 0.0;
 	ySpeed = LO_launchYSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_launchYSpeed - LO_launchYSpeed)));
-	xAccel = 0.0;
-	yAccel = 0.0;
+	zSpeed = 0.0;
 
 	delayBeforeLaunch = LO_delayBeforeLaunch + static_cast <int> (rand()) / (static_cast <int> (RAND_MAX / (HI_delayBeforeLaunch - LO_delayBeforeLaunch)));
 	delayBeforeExplosion = LO_delayBeforeExplosion + static_cast <int> (rand()) / (static_cast <int> (RAND_MAX / (HI_delayBeforeExplosion - LO_delayBeforeExplosion)));
@@ -81,13 +81,13 @@ void Firework::move()
 	}	
 }
 
-void Firework::applyForce(double fx, double fy) {
+void Firework::applyForce(double fx, double fy, double fz) {
 	if (isLaunched)
 	{
 		xSpeed += fx;
 		ySpeed += fy;
 		for (Particle &p : particules) {
-			p.applyForce(fx, fy);
+			p.applyForce(fx, fy, fz);
 		}		
 	} 
 }
@@ -99,7 +99,8 @@ void Firework::explode()
 	for (int i = 0; i < nbParticlesExplosion; i++) {
 		double partXSpeed = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
 		double partYSpeed = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
-		particules.push_back(Particle(x, y, partXSpeed, partYSpeed, 50));
+		double partZSpeed = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
+		particules.push_back(Particle(x, y, 0, partXSpeed, partYSpeed, partZSpeed, 50));
 	}
 }
 
@@ -109,8 +110,8 @@ void Firework::draw()
 	{
 		if (!isExploding) {
 			//std::cout << "draw : x=" << x << " y=" << y << std::endl;
-			double vertices[] = { x, y };
-			glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, 0, vertices);
+			double vertices[] = { x, y , z };
+			glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 0, vertices);
 			glEnableVertexAttribArray(0);
 			glDrawArrays(GL_POINTS, 0, 1);
 			glDisableVertexAttribArray(0);

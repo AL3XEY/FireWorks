@@ -13,15 +13,15 @@ class Firework
 	public:
 		double x;
 		double y;
+		double z;
 		double xSpeed;
 		double ySpeed;
-		double xAccel;
-		double yAccel;
+		double zSpeed;
 
 		Firework();
 		void initialise();
 		void move();
-		void applyForce(double fx, double fy);
+		void applyForce(double fx, double fy, double fz);
 		void explode();
 		void draw();
 		void tick();

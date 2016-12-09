@@ -29,6 +29,6 @@ void DemoMode::update()
 	for(Firework &fw : vect_fw) {
 		fw.tick();
 		fw.move();
-		fw.applyForce(0, Firework::GRAVITY);
+		fw.applyForce(0.0, Firework::GRAVITY, 0.0);
 	}
 }
