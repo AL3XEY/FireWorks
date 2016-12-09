@@ -84,7 +84,7 @@ void SDL_GLEW_Window::resizeWindow(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(70, (double)width / height, 1, 1000); 
+	gluPerspective(70, (double)width / height, 0, 1000); 
 }
 
 void SDL_GLEW_Window::bouclePrincipale()
@@ -126,9 +126,13 @@ void SDL_GLEW_Window::bouclePrincipale()
 
 				case SDL_MOUSEMOTION:
 					if (mouseButtonRight) {
-						eyeX += event.motion.xrel * 0.01;
-						eyeY += event.motion.yrel * 0.01;
+						camAngleX += event.motion.xrel * 0.1;
+						camAngleY += event.motion.yrel * 0.1;
 					}					
+					break;
+
+				case SDL_MOUSEWHEEL:
+					camDist -= event.wheel.y * 0.3;
 					break;
 
 				default:
@@ -139,7 +143,9 @@ void SDL_GLEW_Window::bouclePrincipale()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+		gluLookAt(0, 0, camDist, 0, 0, 0, 0, 1, 0);
+		glRotated(camAngleX, 0, 1, 0);
+		glRotated(camAngleY, 1, 0, 0);
 
 		// Update values
 		demoMode.update();

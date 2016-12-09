@@ -28,15 +28,9 @@ private:
 	SDL_GLContext m_contexteOpenGL;
 	SDL_Event m_evenements;	
 
-	double eyeX = 0.0;
-	double eyeY = 0.0;
-	double eyeZ = -3.0;
-	double centerX = 0.0;
-	double centerY = 0.0;
-	double centerZ = 0.0;
-	double upX = 0.0;
-	double upY = 1.0;
-	double upZ = 0.0;
+	double camDist = 3.0;
+	double camAngleX = 0.0;
+	double camAngleY = 0.0;
 
 	bool mouseButtonRight = false;
 
