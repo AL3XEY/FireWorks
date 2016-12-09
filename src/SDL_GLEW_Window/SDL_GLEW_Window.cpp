@@ -1,19 +1,19 @@
-#include "SDL_GLEW_Window.hpp"
-#include "../Modes/DemoMode.hpp"
+#include "SDL_GLEW_Window.h"
+#include "../Modes/DemoMode.h"
 
 // Constructor
 SDL_GLEW_Window::SDL_GLEW_Window(std::string titreFenetre, int largeurFenetre, int hauteurFenetre) :
 	m_titreFenetre(titreFenetre), 
 	m_largeurFenetre(largeurFenetre),
 	m_hauteurFenetre(hauteurFenetre), 
-	m_fenetre(0), 
+	m_window(0),
 	m_contexteOpenGL(0) { 
 }
 
 // Destructor
 SDL_GLEW_Window::~SDL_GLEW_Window() {
 	SDL_GL_DeleteContext(m_contexteOpenGL);
-	SDL_DestroyWindow(m_fenetre);
+	SDL_DestroyWindow(m_window);
 	SDL_Quit();
 }
 
@@ -39,8 +39,8 @@ bool SDL_GLEW_Window::initialiserFenetre() {
 
 
 	// Création de la fenêtre
-	m_fenetre = SDL_CreateWindow(m_titreFenetre.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_largeurFenetre, m_hauteurFenetre, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-	if (m_fenetre == 0)
+	m_window = SDL_CreateWindow(m_titreFenetre.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_largeurFenetre, m_hauteurFenetre, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+	if (m_window == 0)
 	{
 		std::cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << std::endl;
 		SDL_Quit();
@@ -48,11 +48,11 @@ bool SDL_GLEW_Window::initialiserFenetre() {
 	}
 
 	// Création du contexte OpenGL
-	m_contexteOpenGL = SDL_GL_CreateContext(m_fenetre);
+	m_contexteOpenGL = SDL_GL_CreateContext(m_window);
 	if (m_contexteOpenGL == 0)
 	{
 		std::cout << SDL_GetError() << std::endl;
-		SDL_DestroyWindow(m_fenetre);
+		SDL_DestroyWindow(m_window);
 		SDL_Quit();
 		return false;
 	}
@@ -67,7 +67,7 @@ bool SDL_GLEW_Window::initGL() {
 	{
 		std::cout << "Erreur d'initialisation de GLEW : " << glewGetErrorString(initialisationGLEW) << std::endl;
 		SDL_GL_DeleteContext(m_contexteOpenGL);
-		SDL_DestroyWindow(m_fenetre);
+		SDL_DestroyWindow(m_window);
 		SDL_Quit();
 		return false;
 	}
@@ -75,8 +75,22 @@ bool SDL_GLEW_Window::initGL() {
 	return true;
 }
 
+void SDL_GLEW_Window::resizeWindow(int width, int height) 
+{
+	m_largeurFenetre = width;
+	m_hauteurFenetre = height;
+
+	SDL_SetWindowSize(m_window, width, height);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(70, (double)width / height, 1, 1000); 
+}
+
 void SDL_GLEW_Window::bouclePrincipale()
 {
+	resizeWindow(800, 600);
+
 	Uint32 dt = 0;					// delta time in ms
 	Uint32 clock = SDL_GetTicks();	// last time sample in ms
 
@@ -96,6 +110,36 @@ void SDL_GLEW_Window::bouclePrincipale()
 		// Limite le Frame Rate à maxFPS
 		clock = SDL_GetTicks(); //updates the clock to check the next delta time
 		
+		// Gestion des évènements
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+				case SDL_MOUSEBUTTONDOWN:
+					if (event.button.button == SDL_BUTTON_RIGHT)
+						mouseButtonRight = true;
+					break;
+
+				case SDL_MOUSEBUTTONUP:
+					if (event.button.button == SDL_BUTTON_RIGHT)
+						mouseButtonRight = false;
+					break;
+
+				case SDL_MOUSEMOTION:
+					if (mouseButtonRight) {
+						eyeX += event.motion.xrel * 0.01;
+						eyeY += event.motion.yrel * 0.01;
+					}					
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		glClear(GL_COLOR_BUFFER_BIT);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
 		// Update values
 		demoMode.update();
@@ -110,18 +154,18 @@ void SDL_GLEW_Window::bouclePrincipale()
 		}
 
 		// Rendering
-		//sbMode.drawTest();
 		demoMode.drawScene();
-		//std::cout << "tack" << std::endl;
+		//drawTest();
+
 
 		// Actualisation de la fenêtre
-		SDL_GL_SwapWindow(m_fenetre);
+		SDL_GL_SwapWindow(m_window);
 	}
 }
 
 void SDL_GLEW_Window::drawTest() {
-	double vertices[] = { -0.5, -0.5, 0.2, 0.5, 0.5, -0.5 };
-	glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, 0, vertices);
+	double vertices[] = { -0.5, -0.5, 0.0, 0.5, 0.5, 0.0, 0.5, -0.5, 0.0 };
+	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 0, vertices);
 	glEnableVertexAttribArray(0);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glDisableVertexAttribArray(0);

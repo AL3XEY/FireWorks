@@ -6,7 +6,7 @@
 #include <windows.h> // *** IMPORTANT: Uncomment for Win32 systems - This must come -BEFORE- gl.h in the include list! ***
 #include <GL/gl.h>
 #include <vector>
-#include "Particle.hpp"
+#include "Particle.h"
 
 class Firework
 {

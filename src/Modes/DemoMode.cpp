@@ -1,4 +1,4 @@
-#include "DemoMode.hpp"
+#include "DemoMode.h"
 
 const int DemoMode::nbMaxFirework = 30;
 

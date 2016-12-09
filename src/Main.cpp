@@ -1,4 +1,4 @@
-#include "SDL_GLEW_Window/SDL_GLEW_Window.hpp"
+#include "SDL_GLEW_Window/SDL_GLEW_Window.h"
 
 int main(int argc, char **argv) {
 	// Création de la sène
