@@ -1,18 +1,24 @@
 #include "DemoMode.h"
 
-const int DemoMode::nbMaxFirework = 30;
+const int DemoMode::nbFirework = 30;
+const int DemoMode::nbSphereFirework = 30;
 
 DemoMode::DemoMode() 
 {
-	vect_fw.resize(nbMaxFirework);
+	for (int i = 0; i < nbFirework; i++) {
+		vect_fw.push_back(std::move(std::unique_ptr<Firework>(new Firework)));
+	}
+		
+	for (int i = 0; i < nbSphereFirework; i++)
+		vect_fw.push_back(std::move(std::unique_ptr<SphereFirework>(new SphereFirework)));
 }
 
 void DemoMode::drawScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	for(Firework &fw : vect_fw) {
-		fw.draw();
+	for(auto fw(vect_fw.begin()), ite(vect_fw.end()); fw != ite; ++fw) {
+		(*fw)->draw();
 	}	
 }
 
@@ -26,9 +32,9 @@ void DemoMode::drawTest() {
 
 void DemoMode::update()
 {
-	for(Firework &fw : vect_fw) {
-		fw.tick();
-		fw.move();
-		fw.applyForce(0.0, Firework::GRAVITY, 0.0);
+	for (auto fw(vect_fw.begin()), ite(vect_fw.end()); fw != ite; ++fw) {
+		(*fw)->tick();
+		(*fw)->move();
+		(*fw)->applyForce(0.0, Firework::GRAVITY, 0.0);
 	}
 }

@@ -1,30 +1,30 @@
-#include "Firework.h"
+#include "SphereFirework.h"
 #include <iostream>
 
 
 // Set our static (per class NOT per object!) variable values
-const double Firework::GRAVITY = -0.00004;
-const double Firework::HI_launchYSpeed = 0.012;
-const double Firework::LO_launchYSpeed = 0.008;
-const double Firework::HI_X = 1.0;
-const double Firework::LO_X = -1.0;
-const int Firework::HI_delayBeforeLaunch = 500;
-const int Firework::LO_delayBeforeLaunch = 0;
-const int Firework::HI_delayBeforeExplosion = 350;
-const int Firework::LO_delayBeforeExplosion = 150;
-const int Firework::nbParticlesExplosion = 50;
-const double Firework::explosionParticleSpeed = 0.01;
-const int Firework::lifespanExplosionParticles = 50;
+const double SphereFirework::GRAVITY = -0.00004;
+const double SphereFirework::HI_launchYSpeed = 0.012;
+const double SphereFirework::LO_launchYSpeed = 0.008;
+const double SphereFirework::HI_X = 1.0;
+const double SphereFirework::LO_X = -1.0;
+const int SphereFirework::HI_delayBeforeLaunch = 500;
+const int SphereFirework::LO_delayBeforeLaunch = 0;
+const int SphereFirework::HI_delayBeforeExplosion = 350;
+const int SphereFirework::LO_delayBeforeExplosion = 150;
+const int SphereFirework::nbParticlesExplosion = 50;
+const double SphereFirework::explosionParticleSpeed = 0.01;
+const int SphereFirework::lifespanExplosionParticles = 50;
 
 // Constructor implementation
-Firework::Firework()
+SphereFirework::SphereFirework()
 {
 	// We call a function to perform the constructor's job here so that we can re-initialise the same firework
 	// later on without having to destroy the object and recreate it!
     initialise();
 }
 
-void Firework::initialise()
+void SphereFirework::initialise()
 {
 	x = LO_X + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_X - LO_X)));
 	y = -1.0;
@@ -44,15 +44,13 @@ void Firework::initialise()
 
 	particules.resize(0);
 
-    std::cout << "Initialised a firework." << std::endl;
-	std::cout << delayBeforeExplosion << std::endl;
+    //std::cout << "Initialised a firework." << std::endl;
 }
 
-void Firework::tick()
+void SphereFirework::tick()
 {
 	if (isLaunched) {
 		if (!isExploding && delayBeforeExplosion == 0) {
-			std::cout << "test1" << std::endl;
 			isExploding = true;
 			explode();
 		}
@@ -74,7 +72,7 @@ void Firework::tick()
 	}
 }
 
-void Firework::move()
+void SphereFirework::move()
 {
 	if (isLaunched)
 	{
@@ -87,7 +85,7 @@ void Firework::move()
 	}	
 }
 
-void Firework::applyForce(double fx, double fy, double fz) {
+void SphereFirework::applyForce(double fx, double fy, double fz) {
 	if (isLaunched)
 	{
 		xSpeed += fx;
@@ -98,9 +96,8 @@ void Firework::applyForce(double fx, double fy, double fz) {
 	} 
 }
 
-void Firework::explode()
+void SphereFirework::explode()
 {
-	std::cout << delayBeforeExplosion << std::endl;
 	std::cout << "boom ! " << std::endl;
 	//initialise();
 	for (int i = 0; i < nbParticlesExplosion; i++) {
@@ -111,7 +108,7 @@ void Firework::explode()
 	}
 }
 
-void Firework::draw()
+void SphereFirework::draw()
 {
 	glColor3d(r, g, b);
 	if (isLaunched)

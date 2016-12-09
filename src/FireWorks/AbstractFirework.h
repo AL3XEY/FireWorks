@@ -17,11 +17,12 @@ public:
 	
 	virtual void initialise() = 0;
 	virtual void explode() = 0;
+	virtual void tick() = 0;
 
-	void applyForce(double fx, double fy, double fz);	
-	void move();
-	void draw();
-	void tick();
+	virtual void applyForce(double fx, double fy, double fz) = 0;	
+	virtual void move() = 0;
+	virtual void draw() = 0;
+	
 
 	static const double GRAVITY;
 
