@@ -25,6 +25,7 @@ public:
 	void applyForce(double fx, double fy, double fz);	
 	void move();
 	void draw();
+	bool done();
 	
 
 	static const double GRAVITY;
@@ -44,8 +45,7 @@ protected:
 
 	int delayBeforeLaunch;
 	int delayBeforeExplosion;
-	bool isLaunched;
-	bool isExploding;
+	bool isLaunched, isExploding, isDone;
 
 	std::vector<AbstractParticle> particules;
 };

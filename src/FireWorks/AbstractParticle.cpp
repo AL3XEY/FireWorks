@@ -41,3 +41,7 @@ void AbstractParticle::tick()
 {
 	lifespan--;
 }
+
+bool AbstractParticle::done() {
+	return lifespan < 0;
+}

@@ -22,6 +22,7 @@ public:
 	void applyForce(double fx, double fy, double fz);
 	void draw();
 	void tick();
+	bool done();
 };
 
 #endif

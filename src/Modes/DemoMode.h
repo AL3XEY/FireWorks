@@ -9,17 +9,18 @@
 #include <src\FireWorks\BoxFirework.h>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 class DemoMode
 {
 	public:
-		std::vector<std::unique_ptr<AbstractFirework>> vect_fw; // Create our array of fireworks
 		DemoMode();
 		void drawScene();
 		void drawTest();
 		void update();
 
 	private:
+		std::vector<std::unique_ptr<AbstractFirework>> vect_fw; // Create our array of fireworks
 		static const int nbFirework, nbSphereFirework;
 };
 

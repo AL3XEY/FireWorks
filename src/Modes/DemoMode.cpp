@@ -39,10 +39,17 @@ void DemoMode::update()
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework)));
 	else if (r < 0.03)
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
+
+	for (int i = 0; i < vect_fw.size(); i++) {
+		if (vect_fw.at(i)->done()) {
+			vect_fw.erase(vect_fw.begin() + i);
+			i--;
+		}
+	}
 		
-	for (auto fw(vect_fw.begin()), ite(vect_fw.end()); fw != ite; ++fw) {
+	for (auto fw(vect_fw.begin()), ite(vect_fw.end()); fw != ite; fw++) {
 		(*fw)->tick();
 		(*fw)->move();
-		(*fw)->applyForce(0.0, AbstractFirework::GRAVITY, 0.0);
+		(*fw)->applyForce(0.0, AbstractFirework::GRAVITY, 0.0);	
 	}
 }

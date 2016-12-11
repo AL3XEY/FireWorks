@@ -64,8 +64,15 @@ void AbstractFirework::tick()
 		delayBeforeLaunch--;
 	}
 
+	bool allParticlesDone = true;
 	for (AbstractParticle &p : particules) {
 		p.tick();
+		if (!p.done())
+			allParticlesDone = false;
+	}
+
+	if (isExploding && allParticlesDone) {
+		isDone = true;
 	}
 }
 
@@ -91,6 +98,10 @@ void AbstractFirework::applyForce(double fx, double fy, double fz) {
 			p.applyForce(fx, fy, fz);
 		}
 	}
+}
+
+bool AbstractFirework::done() {
+	return isDone;
 }
 
 void AbstractFirework::draw()
