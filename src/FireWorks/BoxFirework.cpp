@@ -2,6 +2,7 @@
 #include <iostream>
 
 
+
 void BoxFirework::explode()
 {
 	std::cout << "boom ! " << std::endl;
@@ -25,6 +26,6 @@ void BoxFirework::explode()
 			vz = 1.0;
 
 
-		particules.push_back(Particle(x, y, z, vx, vy, vz, 50));
+		particules.push_back(std::move(std::unique_ptr<AbstractParticle>(new Particle(x, y, z, vx, vy, vz, 50))));
 	}
 }

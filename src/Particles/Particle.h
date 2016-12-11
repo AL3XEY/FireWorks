@@ -4,7 +4,7 @@
 #include <GLEW/glew.h>
 #include <GL/gl.h>
 #include <iostream>
-#include "AbstractParticle.h"
+#include <src\Particles\AbstractParticle.h>
 
 class Particle : public AbstractParticle
 {

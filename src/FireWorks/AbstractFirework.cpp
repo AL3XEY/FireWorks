@@ -65,9 +65,9 @@ void AbstractFirework::tick()
 	}
 
 	bool allParticlesDone = true;
-	for (AbstractParticle &p : particules) {
-		p.tick();
-		if (!p.done())
+	for (auto p(particules.begin()), ite(particules.end()); p != ite; p++) {
+		(*p)->tick();
+		if (!(*p)->done())
 			allParticlesDone = false;
 	}
 
@@ -83,8 +83,8 @@ void AbstractFirework::move()
 		x += xSpeed;
 		y += ySpeed;
 
-		for (AbstractParticle &p : particules) {
-			p.move();
+		for (auto p(particules.begin()), ite(particules.end()); p != ite; p++) {
+			(*p)->move();
 		}
 	}
 }
@@ -94,8 +94,8 @@ void AbstractFirework::applyForce(double fx, double fy, double fz) {
 	{
 		xSpeed += fx;
 		ySpeed += fy;
-		for (AbstractParticle &p : particules) {
-			p.applyForce(fx, fy, fz);
+		for (auto p(particules.begin()), ite(particules.end()); p != ite; p++) {
+			(*p)->applyForce(fx, fy, fz);
 		}
 	}
 }
@@ -118,8 +118,8 @@ void AbstractFirework::draw()
 			glDisableVertexAttribArray(0);
 		}
 
-		for (AbstractParticle &p : particules) {
-			p.draw();
+		for (auto p(particules.begin()), ite(particules.end()); p != ite; p++) {
+			(*p)->draw();
 		}
 	}
 }

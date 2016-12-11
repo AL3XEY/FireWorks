@@ -9,11 +9,11 @@ void HeartFirework::explode()
 		const double PI = 3.1415926535897;
 		double angle = i*2*PI/nbParticlesExplosion;
 
-		double partXSpeed = cos(angle) * heartFunction(angle) / 2.0;
-		double partYSpeed = sin(angle) * heartFunction(angle) / 2.0;
-		double partZSpeed = 0.0;
+		double vx = cos(angle) * heartFunction(angle) / 2.0;
+		double vy = sin(angle) * heartFunction(angle) / 2.0;
+		double vz = 0.0;
 
-		particules.push_back(Particle(x, y, z, partXSpeed, partYSpeed, partZSpeed, 50));
+		particules.push_back(std::move(std::unique_ptr<AbstractParticle>(new Particle(x, y, z, vx, vy, vz, 50))));
 	}
 }
 

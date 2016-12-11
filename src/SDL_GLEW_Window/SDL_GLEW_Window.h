@@ -6,7 +6,7 @@
 #include <SDL/SDL.h>
 #include <iostream>
 #include <string>
-#include "../Modes/DemoMode.h"
+#include <src/Modes/DemoMode.h>
 
 const int maxFPS = 60;
 // Classe

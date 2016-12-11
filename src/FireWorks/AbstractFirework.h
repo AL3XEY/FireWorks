@@ -6,8 +6,9 @@
 #include <GL/gl.h>
 #include <vector>
 #include <iostream>
-#include "AbstractParticle.h"
-#include "Particle.h"
+#include <src\Particles\AbstractParticle.h>
+#include <src\Particles\Particle.h>
+#include <memory>
 
 class AbstractFirework
 {
@@ -16,11 +17,11 @@ public:
 	double xSpeed, ySpeed, zSpeed;
 	double r, g, b, a;
 
-	AbstractFirework();
+	explicit AbstractFirework();
 
 	virtual void explode() = 0;
 
-	void initialise();	
+	void initialise();
 	void tick();
 	void applyForce(double fx, double fy, double fz);	
 	void move();
@@ -47,7 +48,7 @@ protected:
 	int delayBeforeExplosion;
 	bool isLaunched, isExploding, isDone;
 
-	std::vector<AbstractParticle> particules;
+	std::vector<std::unique_ptr<AbstractParticle>> particules;
 };
 
 #endif

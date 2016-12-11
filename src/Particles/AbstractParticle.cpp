@@ -1,6 +1,5 @@
 #include "AbstractParticle.h"
 
-
 AbstractParticle::AbstractParticle() {}
 
 AbstractParticle::AbstractParticle(double _x, double _y, double _z, double _xSpeed, double _ySpeed, double _zSpeed, int _lifespan) :
