@@ -1,5 +1,5 @@
 #include "SDL_GLEW_Window.h"
-#include "../Modes/DemoMode.h"
+
 
 // Constructor
 SDL_GLEW_Window::SDL_GLEW_Window(std::string titreFenetre, int largeurFenetre, int hauteurFenetre) :
@@ -7,11 +7,7 @@ SDL_GLEW_Window::SDL_GLEW_Window(std::string titreFenetre, int largeurFenetre, i
 	m_largeurFenetre(largeurFenetre),
 	m_hauteurFenetre(hauteurFenetre), 
 	m_window(0),
-	m_contexteOpenGL(0),
-	camDist(500),
-	camLookY(250),
-	camAngleX(0),
-	mouseButtonRight(false) {
+	m_contexteOpenGL(0) {
 }
 
 // Destructor
@@ -113,44 +109,6 @@ void SDL_GLEW_Window::bouclePrincipale()
 
 		// Limite le Frame Rate à maxFPS
 		clock = SDL_GetTicks(); //updates the clock to check the next delta time
-		
-		// Gestion des évènements
-		SDL_Event event;
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-				case SDL_MOUSEBUTTONDOWN:
-					if (event.button.button == SDL_BUTTON_RIGHT)
-						mouseButtonRight = true;
-					break;
-
-				case SDL_MOUSEBUTTONUP:
-					if (event.button.button == SDL_BUTTON_RIGHT)
-						mouseButtonRight = false;
-					break;
-
-				case SDL_MOUSEMOTION:
-					if (mouseButtonRight) {
-						camAngleX += event.motion.xrel * 0.1;
-						camLookY += event.motion.yrel;
-						if (camLookY < 250)
-							camLookY = 250;
-					}					
-					break;
-
-				case SDL_MOUSEWHEEL:
-					camDist -= event.wheel.y * 10.0 ;
-					break;
-
-				default:
-					break;
-			}
-		}
-
-		glClear(GL_COLOR_BUFFER_BIT);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(0, (camDist / 2.0), camDist, 0, camLookY, 0, 0, 1, 0);
-		glRotated(camAngleX, 0, 1, 0);
 
 		// Update values
 		demoMode.update();

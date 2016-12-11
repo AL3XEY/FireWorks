@@ -9,8 +9,8 @@ void HeartFirework::explode()
 		const double PI = 3.1415926535897;
 		double angle = i*2*PI/nbParticlesExplosion;
 
-		double partXSpeed = cos(angle) * heartFunction(angle);
-		double partYSpeed = sin(angle) * heartFunction(angle);
+		double partXSpeed = cos(angle) * heartFunction(angle) / 2.0;
+		double partYSpeed = sin(angle) * heartFunction(angle) / 2.0;
 		double partZSpeed = 0.0;
 
 		particules.push_back(Particle(x, y, z, partXSpeed, partYSpeed, partZSpeed, 50));

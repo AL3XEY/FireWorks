@@ -11,6 +11,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <SDL/SDL.h>
 
 class DemoMode
 {
@@ -19,10 +20,16 @@ class DemoMode
 		void drawScene();
 		void drawTest();
 		void update();
+		void manageEvents();
+		void manageCamera();
+		void addRandomFireworks();
 
 	private:
 		std::vector<std::unique_ptr<AbstractFirework>> vect_fw; // Create our array of fireworks
 		static const int nbFirework, nbSphereFirework;
+
+		double camDist, camLookY, camAngleX;
+		bool mouseButtonRight;
 };
 
 

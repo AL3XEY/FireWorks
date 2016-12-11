@@ -6,6 +6,7 @@
 #include <SDL/SDL.h>
 #include <iostream>
 #include <string>
+#include "../Modes/DemoMode.h"
 
 const int maxFPS = 60;
 // Classe
@@ -27,10 +28,6 @@ private:
 	SDL_Window* m_window;
 	SDL_GLContext m_contexteOpenGL;
 	SDL_Event m_evenements;	
-
-	double camDist, camLookY, camAngleX;
-
-	bool mouseButtonRight;
 
 	void drawTest();
 };
