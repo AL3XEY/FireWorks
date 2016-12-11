@@ -28,11 +28,9 @@ private:
 	SDL_GLContext m_contexteOpenGL;
 	SDL_Event m_evenements;	
 
-	double camDist = 3.0;
-	double camAngleX = 0.0;
-	double camAngleY = 0.0;
+	double camDist, camLookY, camAngleX;
 
-	bool mouseButtonRight = false;
+	bool mouseButtonRight;
 
 	void drawTest();
 };

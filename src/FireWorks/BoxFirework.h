@@ -1,5 +1,5 @@
-#ifndef SPHERE_FIREWORK_H
-#define SPHERE_FIREWORK_H
+#ifndef BOXFIREWORK_H
+#define BOXFIREWORK_H
 
 #include <GLEW/glew.h>
 #include <cstdlib>
@@ -9,10 +9,10 @@
 #include "Particle.h"
 #include "AbstractFirework.h"
 
-class SphereFirework : public AbstractFirework
+class BoxFirework : public AbstractFirework
 {
-	public:
-		void explode();
+public:
+	void explode();
 };
 
 #endif

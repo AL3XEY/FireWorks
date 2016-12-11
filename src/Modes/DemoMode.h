@@ -1,10 +1,12 @@
-#ifndef DEF_SANBOXMODE
-#define DEF_SANBOXMODE
+#ifndef DEF_DEMOMODE
+#define DEF_DEMOMODE
 
 
 #include <GLEW/glew.h>
+#include <src\FireWorks\AbstractFirework.h>
 #include <src\FireWorks\Firework.h>
 #include <src\FireWorks\SphereFirework.h>
+#include <src\FireWorks\BoxFirework.h>
 #include <vector>
 #include <memory>
 

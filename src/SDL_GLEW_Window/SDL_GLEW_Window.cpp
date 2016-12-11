@@ -7,7 +7,11 @@ SDL_GLEW_Window::SDL_GLEW_Window(std::string titreFenetre, int largeurFenetre, i
 	m_largeurFenetre(largeurFenetre),
 	m_hauteurFenetre(hauteurFenetre), 
 	m_window(0),
-	m_contexteOpenGL(0) { 
+	m_contexteOpenGL(0),
+	camDist(500),
+	camLookY(250),
+	camAngleX(0),
+	mouseButtonRight(false) {
 }
 
 // Destructor
@@ -127,12 +131,14 @@ void SDL_GLEW_Window::bouclePrincipale()
 				case SDL_MOUSEMOTION:
 					if (mouseButtonRight) {
 						camAngleX += event.motion.xrel * 0.1;
-						camAngleY += event.motion.yrel * 0.1;
+						camLookY += event.motion.yrel;
+						if (camLookY < 250)
+							camLookY = 250;
 					}					
 					break;
 
 				case SDL_MOUSEWHEEL:
-					camDist -= event.wheel.y * 0.3;
+					camDist -= event.wheel.y * 10.0 ;
 					break;
 
 				default:
@@ -143,9 +149,8 @@ void SDL_GLEW_Window::bouclePrincipale()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(0, 0, camDist, 0, 0, 0, 0, 1, 0);
+		gluLookAt(0, (camDist / 2.0), camDist, 0, camLookY, 0, 0, 1, 0);
 		glRotated(camAngleX, 0, 1, 0);
-		glRotated(camAngleY, 1, 0, 0);
 
 		// Update values
 		demoMode.update();

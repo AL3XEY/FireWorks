@@ -5,12 +5,12 @@ const int DemoMode::nbSphereFirework = 30;
 
 DemoMode::DemoMode() 
 {
-	for (int i = 0; i < nbFirework; i++) {
-		vect_fw.push_back(std::move(std::unique_ptr<Firework>(new Firework)));
+	/*for (int i = 0; i < nbFirework; i++) {
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
 	}
 		
 	for (int i = 0; i < nbSphereFirework; i++)
-		vect_fw.push_back(std::move(std::unique_ptr<SphereFirework>(new SphereFirework)));
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework)));*/
 }
 
 void DemoMode::drawScene()
@@ -32,9 +32,17 @@ void DemoMode::drawTest() {
 
 void DemoMode::update()
 {
+	double r = (double(rand()) / double(RAND_MAX));
+	if (r < 0.01)
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BoxFirework)));
+	else if (r < 0.02)
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework)));
+	else if (r < 0.03)
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
+		
 	for (auto fw(vect_fw.begin()), ite(vect_fw.end()); fw != ite; ++fw) {
 		(*fw)->tick();
 		(*fw)->move();
-		(*fw)->applyForce(0.0, Firework::GRAVITY, 0.0);
+		(*fw)->applyForce(0.0, AbstractFirework::GRAVITY, 0.0);
 	}
 }

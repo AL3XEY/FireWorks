@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include "AbstractParticle.h"
+#include "Particle.h"
 
 class AbstractFirework
 {
@@ -14,25 +15,27 @@ public:
 	double x, y, z;
 	double xSpeed, ySpeed, zSpeed;
 	double r, g, b, a;
-	
-	virtual void initialise() = 0;
-	virtual void explode() = 0;
-	virtual void tick() = 0;
 
-	virtual void applyForce(double fx, double fy, double fz) = 0;	
-	virtual void move() = 0;
-	virtual void draw() = 0;
+	AbstractFirework();
+
+	virtual void explode() = 0;
+
+	void initialise();	
+	void tick();
+	void applyForce(double fx, double fy, double fz);	
+	void move();
+	void draw();
 	
 
 	static const double GRAVITY;
 
-private:
+protected:
 	static const double HI_launchYSpeed;
 	static const double LO_launchYSpeed;
 	static const double HI_X;
 	static const double LO_X;
-	static const int HI_delayBeforeLaunch;
-	static const int LO_delayBeforeLaunch;
+	//static const int HI_delayBeforeLaunch;
+	//static const int LO_delayBeforeLaunch;
 	static const int HI_delayBeforeExplosion;
 	static const int LO_delayBeforeExplosion;
 	static const int nbParticlesExplosion;
