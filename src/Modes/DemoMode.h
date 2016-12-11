@@ -7,6 +7,7 @@
 #include <src\FireWorks\Firework.h>
 #include <src\FireWorks\SphereFirework.h>
 #include <src\FireWorks\BoxFirework.h>
+#include <src\FireWorks\HeartFirework.h>
 #include <vector>
 #include <memory>
 #include <algorithm>

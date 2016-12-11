@@ -34,11 +34,13 @@ void DemoMode::update()
 {
 	double r = (double(rand()) / double(RAND_MAX));
 	if (r < 0.01)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BoxFirework)));
-	else if (r < 0.02)
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new HeartFirework)));
+	/*else if (r < 0.02)
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework)));
 	else if (r < 0.03)
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
+	else if (r < 0.04)
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BoxFirework)));*/
 
 	for (int i = 0; i < vect_fw.size(); i++) {
 		if (vect_fw.at(i)->done()) {
