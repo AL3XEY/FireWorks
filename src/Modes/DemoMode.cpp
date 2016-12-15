@@ -93,7 +93,7 @@ void DemoMode::manageCamera() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(0, (camDist / 2.0), camDist, 0, camLookY, 0, 0, 1, 0);
-	camAngleX += 0.3;
+	camAngleX += 0.05;
 	glRotated(camAngleX, 0, 1, 0);
 }
 
@@ -112,7 +112,8 @@ void DemoMode::addRandomFireworks() {
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));*/
 
 	if (r < 0.1)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));
+		//vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
 
 	for (unsigned int i = 0; i < vect_fw.size(); i++) {
 		if (vect_fw.at(i)->done()) {

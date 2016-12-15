@@ -12,21 +12,19 @@ class ExplosiveParticle : public AbstractParticle
 {
 	public:
 		ExplosiveParticle();
-		ExplosiveParticle(double _x, double _y, double _z, double _xSpeed, double _ySpeed, double _zSpeed, int _lifespan);
-
-		void explode();
+		ExplosiveParticle(double _x, double _y, double _z, double _xSpeed, double _ySpeed, double _zSpeed, int _lifespan, int _exploLifespan);
 
 		void move() override;
 		void applyForce(double fx, double fy, double fz) override;
-		void draw() override;
+		int draw() override;
 		void tick() override;
 		bool done() override;
 
 	protected:
 		static const int nbParticlesExplosion;
-		static const double explosionParticleSpeed;
-
-
+		static const double explosionParticleRadius;
+		//double cx, cy, cz;
+		int explodingLifespan;
 		bool isExploding, isDone;
 		std::vector<Particle> sousParticules;
 };

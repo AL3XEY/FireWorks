@@ -115,6 +115,7 @@ void AbstractFirework::updateData()
 
 int AbstractFirework::draw()
 {
+	int nbParticulesDrawn = 0;
 	glColor3d(r, g, b);
 	if (isLaunched)
 	{
@@ -125,11 +126,12 @@ int AbstractFirework::draw()
 			glEnableVertexAttribArray(0);
 			glDrawArrays(GL_POINTS, 0, 1);
 			glDisableVertexAttribArray(0);
+			nbParticulesDrawn++;
 		}
 
 		for (auto p(particules.begin()), ite(particules.end()); p != ite; p++) {
-			(*p)->draw();
+			nbParticulesDrawn += (*p)->draw();
 		}
 	}
-	return 1;
+	return nbParticulesDrawn;
 }

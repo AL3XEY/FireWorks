@@ -25,7 +25,7 @@ void AbstractParticle::applyForce(double fx, double fy, double fz)
 	zSpeed += fz;
 }
 
-void AbstractParticle::draw()
+int AbstractParticle::draw()
 {
 	if (lifespan > 0) {
 		double vertices[] = { x, y, z };
@@ -33,7 +33,9 @@ void AbstractParticle::draw()
 		glEnableVertexAttribArray(0);
 		glDrawArrays(GL_POINTS, 0, 1);
 		glDisableVertexAttribArray(0);
+		return 1;
 	}
+	return 0;
 }
 
 void AbstractParticle::tick()

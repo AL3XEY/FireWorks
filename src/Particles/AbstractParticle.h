@@ -13,7 +13,7 @@ class AbstractParticle {
 		
 		virtual void move();
 		virtual void applyForce(double fx, double fy, double fz);
-		virtual void draw();
+		virtual int draw();
 		virtual void tick();
 		virtual bool done();
 
