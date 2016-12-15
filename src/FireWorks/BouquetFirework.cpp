@@ -1,19 +1,21 @@
-#include "Firework.h"
+#include "BouquetFirework.h"
 #include <iostream>
 
-Firework::~Firework() {
+const int BouquetFirework::nbParticlesExplosion = 100;
+
+BouquetFirework::~BouquetFirework() {
 	delete[] m_vertices;
 	glDeleteBuffers(1, &m_vboID);
 }
 
-void Firework::explode()
+void BouquetFirework::explode()
 {
 	//std::cout << "boom!" << std::endl;
 	//initialise();
 	for (int i = 0; i < nbParticlesExplosion; i++) {
-		double vx = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
-		double vy = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
-		double vz = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
+		double vy = explosionParticleSpeed*0.2 + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 1.0)));
+		double vx = -vy * 0.5 + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (vy)));
+		double vz = -vy * 0.5 + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (vy)));
 		
 		particules.push_back(std::move(std::unique_ptr<AbstractParticle>(new Particle(x, y, z, vx, vy, vz, 50))));
 	}
@@ -34,7 +36,7 @@ void Firework::explode()
 	openGLGetErrors();
 }
 
-int Firework::draw()
+int BouquetFirework::draw()
 {
 	int nbParticules = 0;
 	glColor3d(r, g, b);
@@ -65,7 +67,7 @@ int Firework::draw()
 	return nbParticules;
 }
 
-void Firework::updateData() {
+void BouquetFirework::updateData() {
 	if (isExploding) {
 		glBindBuffer(GL_ARRAY_BUFFER, m_vboID); // Verrouillage du VBO
 		void *adresseVBO = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY); // Récupération de l'adresse du VBO

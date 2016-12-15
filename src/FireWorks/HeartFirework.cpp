@@ -3,7 +3,6 @@
 
 void HeartFirework::explode()
 {
-	std::cout << "boom!" << std::endl;
 	//initialise();
 	for (int i = 0; i < nbParticlesExplosion; i++) {
 		const double PI = 3.1415926535897;

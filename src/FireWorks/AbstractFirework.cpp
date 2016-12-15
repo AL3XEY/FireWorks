@@ -1,9 +1,11 @@
 #include "AbstractFirework.h"
 
 // Set our static (per class NOT per object!) variable values
-const double AbstractFirework::GRAVITY = -0.004;
-const double AbstractFirework::HI_launchYSpeed = 2.0;
-const double AbstractFirework::LO_launchYSpeed = 1.5;
+const double AbstractFirework::GRAVITY = -0.008;
+const double AbstractFirework::HI_launchYSpeed = 3.0;
+const double AbstractFirework::LO_launchYSpeed = 2.0;
+const double AbstractFirework::HI_launchXZSpeed = 0.5;
+const double AbstractFirework::LO_launchXZSpeed = -0.5;
 const double AbstractFirework::HI_X = 200.0;
 const double AbstractFirework::LO_X = -200.0;
 //const int AbstractFirework::HI_delayBeforeLaunch = 500;
@@ -39,9 +41,9 @@ void AbstractFirework::initialise()
 	x = LO_X + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_X - LO_X)));
 	y = -1.0;
 	z = LO_X + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_X - LO_X)));
-	xSpeed = 0.0;
+	xSpeed = LO_launchXZSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_launchXZSpeed - LO_launchXZSpeed)));
 	ySpeed = LO_launchYSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_launchYSpeed - LO_launchYSpeed)));
-	zSpeed = 0.0;
+	zSpeed = LO_launchXZSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_launchXZSpeed - LO_launchXZSpeed)));
 
 	r = static_cast <double> (rand()) / (static_cast <double> (RAND_MAX));
 	g = static_cast <double> (rand()) / (static_cast <double> (RAND_MAX));
@@ -155,12 +157,14 @@ int AbstractFirework::draw()
 			double vertices[] = { x, y , z };
 			glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 0, vertices);
 			glEnableVertexAttribArray(0);
+			glPointSize(2.0);
 			glDrawArrays(GL_POINTS, 0, 1);
 			glDisableVertexAttribArray(0);
 			nbParticulesDrawn++;
 		}
 
 		for (auto p(particules.begin()), ite(particules.end()); p != ite; p++) {
+			glPointSize(1.0);
 			nbParticulesDrawn += (*p)->draw();
 		}
 	}

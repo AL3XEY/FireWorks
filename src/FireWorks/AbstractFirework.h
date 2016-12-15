@@ -21,6 +21,7 @@ public:
 	explicit AbstractFirework(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa);
 	~AbstractFirework();
 
+	virtual void initialise();
 	virtual void explode() = 0;
 	virtual int draw();
 	virtual void updateData();
@@ -46,6 +47,8 @@ protected:
 	static const int nbParticlesExplosion;
 	static const double explosionParticleSpeed;
 	static const int lifespanExplosionParticles;
+	static const double HI_launchXZSpeed;
+	static const double LO_launchXZSpeed;
 
 	int delayBeforeLaunch;
 	int delayBeforeExplosion;
