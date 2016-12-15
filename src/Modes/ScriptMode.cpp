@@ -104,41 +104,6 @@ ScriptMode::ScriptMode(std::string filename) :
 		myReadFile.close();
 		delete[] cstr;
 
-
-		/*if (!arg.compare(0, comment.size(), comment){
-		buffer.erase(0, buffer.find(delimiter) + delimiter.length());
-		}*/
-
-		/*
-		
-		// Ajout de Fireworks
-		double r = (double(rand()) / double(RAND_MAX));
-		//
-		if (r < 0.01)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new HeartFirework)));
-		else if (r < 0.02)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework)));
-		else if (r < 0.03)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
-		else if (r < 0.04)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BoxFirework)));
-		else if (r < 0.05)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));
-		//
-
-		if (r < 0.1)
-			vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));
-		//vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
-
-		for (unsigned int i = 0; i < vect_fw.size(); i++) {
-			if (vect_fw.at(i)->done()) {
-				vect_fw.erase(vect_fw.begin() + i);
-				i--;
-			}
-		}
-
-		*/
-
 }
 
 ScriptMode::~ScriptMode()
