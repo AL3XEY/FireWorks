@@ -112,7 +112,7 @@ void DemoMode::addRandomFireworks() {
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));*/
 
 	if (r < 0.1)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new TracerFirework())));
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BouquetFirework())));
 		//vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
 
 	for (unsigned int i = 0; i < vect_fw.size(); i++) {

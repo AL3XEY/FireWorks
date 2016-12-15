@@ -9,6 +9,7 @@
 #include <src\FireWorks\BoxFirework.h>
 #include <src\FireWorks\HeartFirework.h>
 #include <src\Fireworks\ExplosiveFirework.h>
+#include <src/Fireworks/BouquetFirework.h>
 #include <vector>
 #include <memory>
 #include <algorithm>
