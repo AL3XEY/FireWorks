@@ -4,19 +4,6 @@ ScriptMode::ScriptMode(std::string filename) :
 	DemoMode()
 {
 
-		//do
-		//	read in
-		//	if(...)
-		//		do ...
-		//	if(delay)
-		//		take current time
-		//		while(time not spent)
-		//			take current time
-		//			calculate delta
-		//	if(...)
-		//		do ...
-		//while(not EOF)
-
 		std::string delimiter = " ";
 		std::string comment = "#";
 		std::string token;
@@ -28,7 +15,6 @@ ScriptMode::ScriptMode(std::string filename) :
 		size_t pos;
 		int line = 1;
 		double launchDelay, x, y, z, vx, vy, vz, r, g, b, a;
-		//Firework firework;
 		std::string currentFirework;
 		if (myReadFile.is_open()) {
 			do {
@@ -41,8 +27,13 @@ ScriptMode::ScriptMode(std::string filename) :
 					|| token == "sphere") {
 					currentFirework = token;
 					buffer.erase(0, buffer.find(delimiter) + delimiter.length());
-					launchDelay = x = y = z = vx = vy = vz = r = g = b = a = 0;
-					//do{
+					launchDelay = vx = vz = a = 0;
+					x = z =-100.0;
+					y = 1.0;
+					vy = 2.0;
+					r = g = b = 255.0;
+					//AbstractFirework::
+
 					if ((pos = buffer.find(delimiter)) != std::string::npos) {
 						token = buffer.substr(0, buffer.find(delimiter));
 						launchDelay = atof(token.c_str());
@@ -88,7 +79,6 @@ ScriptMode::ScriptMode(std::string filename) :
 																token = buffer.substr(0, buffer.find(delimiter));
 																a = atof(token.c_str());
 																buffer.erase(0, buffer.find(delimiter) + delimiter.length());
-
 															}
 														}
 													}
@@ -100,20 +90,12 @@ ScriptMode::ScriptMode(std::string filename) :
 							}
 						}
 
-
-
-						
 					}
-					//buffer.erase(0, buffer.find(delimiter) + delimiter.length());
-					//}while((pos = buffer.find(delimiter)) != std::string::npos);
 
-					//ExplosiveFirework firework();
+					vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework(launchDelay, x, y, z, vx, vy, vz, r, g, b, a))));
 
-					vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));
-
-					std::cout << "delay = " << launchDelay << std::endl;
-					std::cout << "x = " << x << std::endl;
-					std::cout << "y = " << y << std::endl;
+					//std::cout << "delay = " << launchDelay << std::endl;
+	
 				}
 				std::cout << line << ":: " << token << std::endl;
 				line++;

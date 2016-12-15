@@ -22,6 +22,13 @@ AbstractFirework::AbstractFirework()
 	initialise();
 }
 
+AbstractFirework::AbstractFirework(double launchDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa)
+{
+	// We call a function to perform the constructor's job here so that we can re-initialise the same firework
+	// later on without having to destroy the object and recreate it!
+	initialise(launchDelay, xx, yy, zz, vxx, vyy, vzz, rr, gg, bb, aa);
+}
+
 AbstractFirework::~AbstractFirework()
 {
 
@@ -42,6 +49,30 @@ void AbstractFirework::initialise()
 
 	//delayBeforeLaunch = LO_delayBeforeLaunch + static_cast <int> (rand()) / (static_cast <int> (RAND_MAX / (HI_delayBeforeLaunch - LO_delayBeforeLaunch)));
 	delayBeforeLaunch = 0;
+	delayBeforeExplosion = LO_delayBeforeExplosion + static_cast <int> (rand()) / (static_cast <int> (RAND_MAX / (HI_delayBeforeExplosion - LO_delayBeforeExplosion)));
+	isLaunched = false;
+	isExploding = false;
+
+	particules.resize(0);
+}
+
+void AbstractFirework::initialise(double launchDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa)
+{
+	std::cout << "initialise with parameters" << std::endl;
+	x = xx;
+	y = yy;
+	z = zz;
+	xSpeed = vxx;
+	ySpeed = vyy;
+	zSpeed = vzz;
+
+	r = rr;
+	g = gg;
+	b = bb;
+	a = aa;
+
+	//delayBeforeLaunch = LO_delayBeforeLaunch + static_cast <int> (rand()) / (static_cast <int> (RAND_MAX / (HI_delayBeforeLaunch - LO_delayBeforeLaunch)));
+	delayBeforeLaunch = launchDelay;
 	delayBeforeExplosion = LO_delayBeforeExplosion + static_cast <int> (rand()) / (static_cast <int> (RAND_MAX / (HI_delayBeforeExplosion - LO_delayBeforeExplosion)));
 	isLaunched = false;
 	isExploding = false;
