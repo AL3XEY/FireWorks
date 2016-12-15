@@ -99,7 +99,9 @@ void SDL_GLEW_Window::bouclePrincipale()
 
 	srand(static_cast <unsigned> (clock)); // Sets the random seed (for future rand())
 
-	DemoMode demoMode; // Initialize a SandBox Mode
+	//DemoMode demoMode; // Initialize a SandBox Mode
+	ScriptMode scriptMode(".\\test.txt");
+	//DemoMode autoMode;
 
 	// Boucle principale
 	bool continueLoop = true;
@@ -114,7 +116,7 @@ void SDL_GLEW_Window::bouclePrincipale()
 		clock = SDL_GetTicks(); //updates the clock to check the next delta time
 
 		// Update values
-		demoMode.update();
+		scriptMode.update();
 
 		//std::cout << "tick" << std::endl;
 		dt = SDL_GetTicks() - clock; //get the current delta time for this frame
@@ -126,7 +128,7 @@ void SDL_GLEW_Window::bouclePrincipale()
 		}
 
 		// Rendering
-		int nbParticules = demoMode.drawScene();
+		int nbParticules = scriptMode.drawScene();
 		
 		// Affichage des metriques (fps, nbParticules)
 		int tick = SDL_GetTicks();
