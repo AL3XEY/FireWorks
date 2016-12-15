@@ -32,7 +32,16 @@ void TracerFirework::initialise() {
 void TracerFirework::initialise(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa) {
 	AbstractFirework::initialise(launchDelay, explodeDelay, xx, yy, zz, vxx, vyy, vzz, rr, gg, bb, aa);
 	
-	initialise();
+	nbParticulesTraine = 0;
+	lengthTraine = 50;
+
+	m_vertices = new double[lengthTraine * 3];
+
+	glGenBuffers(1, &m_vboID); // Récupération de l'ID
+	glBindBuffer(GL_ARRAY_BUFFER, m_vboID); // Verrouillage du VBO
+	glBufferData(GL_ARRAY_BUFFER, lengthTraine * sizeof(double) * 3, m_vertices, GL_STREAM_COPY);  // Transfert des vertices
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // Déverrouillage de l'objet
+	openGLGetErrors();
 }
 
 void TracerFirework::explode()
