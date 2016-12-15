@@ -3,7 +3,6 @@
 ScriptMode::ScriptMode(std::string filename) :
 	DemoMode()
 {
-
 		std::string delimiter = " ";
 		std::string comment = "#";
 		std::string token;
@@ -13,73 +12,77 @@ ScriptMode::ScriptMode(std::string filename) :
 		myReadFile.open(cstr);
 		std::string buffer;
 		size_t pos;
-		int line = 1;
-		double launchDelay, x, y, z, vx, vy, vz, r, g, b, a;
+		double launchDelay, explodeDelay, x, y, z, vx, vy, vz, r, g, b, a;
 		std::string currentFirework;
+		bool hasArguments;
 		if (myReadFile.is_open()) {
 			do {
 				getline(myReadFile, buffer);
-
-				//TODO if substring[index] exists
 				token = buffer.substr(0, buffer.find(delimiter));
 
 				if (token == "explosive"
 					|| token == "sphere"
 					|| token == "heart") {
 					currentFirework = token;
+					hasArguments = false;
 					buffer.erase(0, buffer.find(delimiter) + delimiter.length());
-					launchDelay = vx = vz = a = 0;
-					x = z =-100.0;
+					launchDelay = vx = vz = a = 0.0;
+					explodeDelay = 200.0;
+					x = z = -100.0;
 					y = 1.0;
 					vy = 2.0;
 					r = g = b = 255.0;
-					//AbstractFirework::
 
 					if ((pos = buffer.find(delimiter)) != std::string::npos) {
+						hasArguments = true;
 						token = buffer.substr(0, buffer.find(delimiter));
 						launchDelay = atof(token.c_str());
 						buffer.erase(0, buffer.find(delimiter) + delimiter.length());
-
 						if ((pos = buffer.find(delimiter)) != std::string::npos) {
 							token = buffer.substr(0, buffer.find(delimiter));
-							x = atof(token.c_str());
+							explodeDelay = atof(token.c_str());
 							buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 							if ((pos = buffer.find(delimiter)) != std::string::npos) {
 								token = buffer.substr(0, buffer.find(delimiter));
-								y = atof(token.c_str());
+								x = atof(token.c_str());
 								buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 								if ((pos = buffer.find(delimiter)) != std::string::npos) {
 									token = buffer.substr(0, buffer.find(delimiter));
-									z = atof(token.c_str());
+									y = atof(token.c_str());
 									buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 									if ((pos = buffer.find(delimiter)) != std::string::npos) {
 										token = buffer.substr(0, buffer.find(delimiter));
-										vx = atof(token.c_str());
+										z = atof(token.c_str());
 										buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 										if ((pos = buffer.find(delimiter)) != std::string::npos) {
 											token = buffer.substr(0, buffer.find(delimiter));
-											vy = atof(token.c_str());
+											vx = atof(token.c_str());
 											buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 											if ((pos = buffer.find(delimiter)) != std::string::npos) {
 												token = buffer.substr(0, buffer.find(delimiter));
-												vz = atof(token.c_str());
+												vy = atof(token.c_str());
 												buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 												if ((pos = buffer.find(delimiter)) != std::string::npos) {
 													token = buffer.substr(0, buffer.find(delimiter));
-													r = atof(token.c_str());
+													vz = atof(token.c_str());
 													buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 													if ((pos = buffer.find(delimiter)) != std::string::npos) {
 														token = buffer.substr(0, buffer.find(delimiter));
-														g = atof(token.c_str());
+														r = atof(token.c_str());
 														buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 														if ((pos = buffer.find(delimiter)) != std::string::npos) {
 															token = buffer.substr(0, buffer.find(delimiter));
-															b = atof(token.c_str());
+															g = atof(token.c_str());
 															buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 															if ((pos = buffer.find(delimiter)) != std::string::npos) {
 																token = buffer.substr(0, buffer.find(delimiter));
-																a = atof(token.c_str());
+																b = atof(token.c_str());
 																buffer.erase(0, buffer.find(delimiter) + delimiter.length());
+																if ((pos = buffer.find(delimiter)) != std::string::npos) {
+																	token = buffer.substr(0, buffer.find(delimiter));
+																	a = atof(token.c_str());
+																	buffer.erase(0, buffer.find(delimiter) + delimiter.length());
+																}
 															}
 														}
 													}
@@ -90,21 +93,28 @@ ScriptMode::ScriptMode(std::string filename) :
 								}
 							}
 						}
-
 					}
 
-					if(currentFirework == "explosive")
-						vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework(launchDelay, x, y, z, vx, vy, vz, r, g, b, a))));
-					if (currentFirework == "sphere")
-						vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework(launchDelay, x, y, z, vx, vy, vz, r, g, b, a))));
-					if (currentFirework == "heart")
-						vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new HeartFirework(launchDelay, x, y, z, vx, vy, vz, r, g, b, a))));
-
-					//std::cout << "delay = " << launchDelay << std::endl;
+					if (currentFirework == "explosive") {
+						if(hasArguments)
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework(launchDelay, explodeDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+						else
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));
+					}
+					else if (currentFirework == "sphere") {
+						if (hasArguments)
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework(launchDelay, explodeDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+						else
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework())));
+					}
+					else if (currentFirework == "heart") {
+						if (hasArguments)
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new HeartFirework(launchDelay, explodeDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+						else
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new HeartFirework())));
+					}
 	
 				}
-				std::cout << line << ":: " << token << std::endl;
-				line++;
 			} while (!myReadFile.eof());
 		}
 		myReadFile.close();
