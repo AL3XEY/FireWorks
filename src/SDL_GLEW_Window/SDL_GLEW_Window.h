@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <src/Modes/DemoMode.h>
+#include <src/Modes/ScriptMode.h>
 
 const int maxFPS = 60;
 const int ticksBeetweenMetricsUpdate = 20;

@@ -99,7 +99,8 @@ void SDL_GLEW_Window::bouclePrincipale()
 
 	srand(static_cast <unsigned> (clock)); // Sets the random seed (for future rand())
 
-	DemoMode demoMode; // Initialize a SandBox Mode
+	//DemoMode demoMode; // Initialize a SandBox Mode
+	ScriptMode demoMode(".\\test.txt");
 
 	// Boucle principale
 	bool continueLoop = true;

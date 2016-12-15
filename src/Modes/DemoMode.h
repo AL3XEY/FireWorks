@@ -27,10 +27,13 @@ class DemoMode
 		void manageEvents();
 		void manageCamera();
 		void addRandomFireworks();
-		
 
-	private:
+	protected:
+
 		std::vector<std::unique_ptr<AbstractFirework>> vect_fw; // Create our array of fireworks
+
+	public:
+
 		static const int nbFirework, nbSphereFirework;
 
 		double camDist, camLookY, camAngleX;

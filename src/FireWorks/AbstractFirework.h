@@ -18,13 +18,16 @@ public:
 	double r, g, b, a;
 
 	explicit AbstractFirework();
+	explicit AbstractFirework(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa);
 	~AbstractFirework();
 
 	virtual void initialise();
 	virtual void explode() = 0;
 	virtual int draw();
 	virtual void updateData();
-	
+
+	void initialise();
+	void initialise(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa);
 	void tick();
 	void applyForce(double fx, double fy, double fz);	
 	void move();	
