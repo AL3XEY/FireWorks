@@ -60,7 +60,6 @@ void AbstractFirework::initialise()
 
 void AbstractFirework::initialise(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa)
 {
-	std::cout << "initialise with parameters" << std::endl;
 	x = xx;
 	y = yy;
 	z = zz;

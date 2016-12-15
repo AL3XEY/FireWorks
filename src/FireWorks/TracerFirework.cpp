@@ -5,6 +5,10 @@ TracerFirework::TracerFirework() {
 	TracerFirework::initialise();
 }
 
+TracerFirework::TracerFirework(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa) {
+	TracerFirework::initialise(launchDelay, explodeDelay, xx, yy, zz, vxx, vyy, vzz, rr, gg, bb, aa);
+}
+
 TracerFirework::~TracerFirework() {
 	delete[] m_vertices;
 	glDeleteBuffers(1, &m_vboID);
@@ -23,6 +27,12 @@ void TracerFirework::initialise() {
 	glBufferData(GL_ARRAY_BUFFER, lengthTraine * sizeof(double) * 3, m_vertices, GL_STREAM_COPY);  // Transfert des vertices
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Déverrouillage de l'objet
 	openGLGetErrors();
+}
+
+void TracerFirework::initialise(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa) {
+	AbstractFirework::initialise(launchDelay, explodeDelay, xx, yy, zz, vxx, vyy, vzz, rr, gg, bb, aa);
+	
+	initialise();
 }
 
 void TracerFirework::explode()

@@ -1,7 +1,28 @@
-instructions : fireworkType launchDelay x y z xSpeed ySpeed zSpeed r g b a
+instructions : fireworkType launchDelay explodeDelay x y z xSpeed ySpeed zSpeed r g b a
 
-explosive 0 200 -100 -1 -100 0 2.0 0 100 255 100 1
-explosive 100 300 100 -1 -100 0 1.8 0 0 0 255 1
+#explosive 0 200 -100 -1 -100 0 2.0 0 100 255 100 1
+#explosive 100 300 100 -1 -100 0 1.8 0 0 0 255 1
+
 explosive
 sphere
 heart
+box
+bouquet
+tracer
+
+explosive 150 0 -100 -1 -200 0 1.5 0 50 255 50 1
+explosive 140 0 -100 -1 -175 0 1.5 0 50 255 50 1
+explosive 130 0 -100 -1 -150 0 1.5 0 50 255 50 1
+explosive 120 0 -100 -1 -125 0 1.5 0 50 255 50 1
+explosive 110 0 -100 -1 -100 0 1.5 0 50 255 50 1
+explosive 100 0 -100 -1 -75 0 1.5 0 50 255 50 1
+explosive 90 0 -100 -1 -50 0 1.5 0 50 255 50 1
+explosive 80 0 -100 -1 -25 0 1.5 0 50 255 50 1
+explosive 70 0 -100 -1 0 0 1.5 0 50 255 50 1
+explosive 60 0 -100 -1 25 0 1.5 0 50 255 50 1
+explosive 50 0 -100 -1 50 0 1.5 0 50 255 50 1
+explosive 40 0 -100 -1 100 0 1.5 0 50 255 50 1
+explosive 30 0 -100 -1 125 0 1.5 0 50 255 50 1
+explosive 20 0 -100 -1 150 0 1.5 0 50 255 50 1
+explosive 10 0 -100 -1 175 0 1.5 0 50 255 50 1
+explosive 0 0 -100 -1 200 0 1.5 0 50 255 50 1

@@ -22,7 +22,10 @@ ScriptMode::ScriptMode(std::string filename) :
 
 				if (token == "explosive"
 					|| token == "sphere"
-					|| token == "heart") {
+					|| token == "heart"
+					|| token == "box"
+					|| token == "bouquet"
+					|| token == "tracer") {
 					currentFirework = token;
 					hasArguments = false;
 					buffer.erase(0, buffer.find(delimiter) + delimiter.length());
@@ -112,6 +115,21 @@ ScriptMode::ScriptMode(std::string filename) :
 							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new HeartFirework(launchDelay, explodeDelay, x, y, z, vx, vy, vz, r, g, b, a))));
 						else
 							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new HeartFirework())));
+					}else if (currentFirework == "box") {
+						if (hasArguments)
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BoxFirework(launchDelay, explodeDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+						else
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BoxFirework())));
+					}else if (currentFirework == "bouquet") {
+						if (hasArguments)
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BouquetFirework(launchDelay, explodeDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+						else
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BouquetFirework())));
+					}else if (currentFirework == "tracer") {
+						if (hasArguments)
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new TracerFirework(launchDelay, explodeDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+						else
+							vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new TracerFirework())));
 					}
 	
 				}

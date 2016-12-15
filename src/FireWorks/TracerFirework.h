@@ -15,9 +15,11 @@ class TracerFirework : public AbstractFirework
 {
 	public:
 		TracerFirework();
+		TracerFirework(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa);
 		~TracerFirework();
 
 		void initialise();
+		void initialise(double launchDelay, double explodeDelay, double xx, double yy, double zz, double vxx, double vyy, double vzz, double rr, double gg, double bb, double aa);
 		int draw();
 		void explode();
 		void updateData();
