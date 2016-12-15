@@ -9,6 +9,12 @@ void ExplosiveFirework::explode()
 		double vx = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
 		double vy = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
 		double vz = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
+
+		double length = sqrt(vx*vx + vy*vy + vz*vz);
+
+		vx = vx / length;
+		vy = vy / length;
+		vz = vz / length;
 		
 		int lifespan = 5;
 		int explolifespan = 10 + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (100 - 10))); // entre 10 et 100

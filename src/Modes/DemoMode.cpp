@@ -93,7 +93,7 @@ void DemoMode::manageCamera() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(0, (camDist / 2.0), camDist, 0, camLookY, 0, 0, 1, 0);
-	camAngleX += 0.05;
+	camAngleX += 0;
 	glRotated(camAngleX, 0, 1, 0);
 }
 
