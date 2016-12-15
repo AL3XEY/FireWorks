@@ -45,6 +45,7 @@ int Firework::draw()
 			double vertices[] = { x, y , z };
 			glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 0, vertices);
 			glEnableVertexAttribArray(0);
+			glPointSize(2.0);
 			glDrawArrays(GL_POINTS, 0, 1);
 			glDisableVertexAttribArray(0);
 			nbParticules++;
@@ -53,6 +54,7 @@ int Firework::draw()
 			glBindBuffer(GL_ARRAY_BUFFER, m_vboID); // On bind 
 			glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 0, 0); // Accès aux vertices dans la mémoire vidéo
 			glEnableVertexAttribArray(0);
+			glPointSize(1.0);
 			glDrawArrays(GL_POINTS, 0, nbParticlesExplosion);
 			glDisableVertexAttribArray(0);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);

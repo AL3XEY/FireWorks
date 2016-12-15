@@ -5,7 +5,6 @@
 
 void BoxFirework::explode()
 {
-	std::cout << "boom ! " << std::endl;
 	//initialise();
 	for (int i = 0; i < nbParticlesExplosion; i++) {
 		double vx = -explosionParticleSpeed + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 2)));
