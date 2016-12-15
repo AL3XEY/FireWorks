@@ -1,12 +1,7 @@
-a
-b
-ce
+instructions : fireworkType launchDelay x y z xSpeed ySpeed zSpeed r g b a
 
-#comment
-#firework launchDelay x y z vx vy vz r g b a
-firework 0 -100 -1 -100 0 2.0 0 100 255 100 1
-firework 100 100 -1 -100 0 1.8 0 0 0 255 1
-firework 0 1 2 0 0 0 0 0 0 0 0
-firework
-sphere 0 0 0 0 0 0 0 0 0 0 0
+explosive 0 -100 -1 -100 0 2.0 0 100 255 100 1
+explosive 100 100 -1 -100 0 1.8 0 0 0 255 1
+explosive
 sphere
+heart

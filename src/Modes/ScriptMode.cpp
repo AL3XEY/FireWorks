@@ -23,8 +23,9 @@ ScriptMode::ScriptMode(std::string filename) :
 				//TODO if substring[index] exists
 				token = buffer.substr(0, buffer.find(delimiter));
 
-				if (token == "firework"
-					|| token == "sphere") {
+				if (token == "explosive"
+					|| token == "sphere"
+					|| token == "heart") {
 					currentFirework = token;
 					buffer.erase(0, buffer.find(delimiter) + delimiter.length());
 					launchDelay = vx = vz = a = 0;
@@ -92,7 +93,12 @@ ScriptMode::ScriptMode(std::string filename) :
 
 					}
 
-					vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework(launchDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+					if(currentFirework == "explosive")
+						vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework(launchDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+					if (currentFirework == "sphere")
+						vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework(launchDelay, x, y, z, vx, vy, vz, r, g, b, a))));
+					if (currentFirework == "heart")
+						vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new HeartFirework(launchDelay, x, y, z, vx, vy, vz, r, g, b, a))));
 
 					//std::cout << "delay = " << launchDelay << std::endl;
 	
