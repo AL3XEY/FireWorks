@@ -12,7 +12,7 @@ const double AbstractFirework::LO_X = -200.0;
 //const int AbstractFirework::LO_delayBeforeLaunch = 0;
 const int AbstractFirework::HI_delayBeforeExplosion = 350;
 const int AbstractFirework::LO_delayBeforeExplosion = 150;
-const int AbstractFirework::nbParticlesExplosion = 500;
+const int AbstractFirework::nbParticlesExplosion = 200;
 const double AbstractFirework::explosionParticleSpeed = 1.0;
 const int AbstractFirework::lifespanExplosionParticles = 50;
 
