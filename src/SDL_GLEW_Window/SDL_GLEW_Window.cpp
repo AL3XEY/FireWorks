@@ -73,6 +73,8 @@ bool SDL_GLEW_Window::initGL() {
 		return false;
 	}
 
+	glEnable(GL_PROGRAM_POINT_SIZE);
+
 	return true;
 }
 

@@ -13,7 +13,7 @@ void BouquetFirework::explode()
 	//std::cout << "boom!" << std::endl;
 	//initialise();
 	for (int i = 0; i < nbParticlesExplosion; i++) {
-		double vy = explosionParticleSpeed*0.5 + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 1.5)));
+		double vy = explosionParticleSpeed*0.2 + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (explosionParticleSpeed * 1.0)));
 		double vx = -vy * 0.5 + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (vy)));
 		double vz = -vy * 0.5 + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (vy)));
 		
@@ -47,6 +47,7 @@ int BouquetFirework::draw()
 			double vertices[] = { x, y , z };
 			glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 0, vertices);
 			glEnableVertexAttribArray(0);
+			glPointSize(2.0);
 			glDrawArrays(GL_POINTS, 0, 1);
 			glDisableVertexAttribArray(0);
 			nbParticules++;
