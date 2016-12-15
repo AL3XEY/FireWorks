@@ -1,0 +1,10 @@
+a
+b
+ce
+
+#comment
+#firework launchDelay x y z vx vy vz r g b a
+firework 0 1 2 0 0 0 0 0 0 0 0
+firework
+sphere 0 0 0 0 0 0 0 0 0 0 0
+sphere
