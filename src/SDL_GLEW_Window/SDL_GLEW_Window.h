@@ -9,6 +9,7 @@
 #include <src/Modes/DemoMode.h>
 
 const int maxFPS = 60;
+const int ticksBeetweenMetricsUpdate = 20;
 // Classe
 class SDL_GLEW_Window {
 public:
@@ -28,6 +29,8 @@ private:
 	SDL_Window* m_window;
 	SDL_GLContext m_contexteOpenGL;
 	SDL_Event m_evenements;	
+
+	int ticksBeforeUpdateMetrics;
 
 	void drawTest();
 };

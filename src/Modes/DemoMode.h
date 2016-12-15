@@ -13,17 +13,19 @@
 #include <memory>
 #include <algorithm>
 #include <SDL/SDL.h>
+#include <src/Tweeks/openGLGetErrors.h>
 
 class DemoMode
 {
 	public:
 		DemoMode();
-		void drawScene();
+		int drawScene();
 		void drawTest();
 		void update();
 		void manageEvents();
 		void manageCamera();
 		void addRandomFireworks();
+		
 
 	private:
 		std::vector<std::unique_ptr<AbstractFirework>> vect_fw; // Create our array of fireworks
@@ -31,6 +33,7 @@ class DemoMode
 
 		double camDist, camLookY, camAngleX;
 		bool mouseButtonRight;
+		
 };
 
 

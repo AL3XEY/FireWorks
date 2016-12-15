@@ -22,6 +22,11 @@ AbstractFirework::AbstractFirework()
 	initialise();
 }
 
+AbstractFirework::~AbstractFirework()
+{
+
+}
+
 void AbstractFirework::initialise()
 {
 	x = LO_X + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (HI_X - LO_X)));
@@ -58,7 +63,7 @@ void AbstractFirework::tick()
 
 	if (!isLaunched && delayBeforeLaunch == 0) {
 		isLaunched = true;
-		std::cout << "launched ! " << std::endl;
+		//std::cout << "launched ! " << std::endl;
 	}
 	else {
 		delayBeforeLaunch--;
@@ -104,7 +109,11 @@ bool AbstractFirework::done() {
 	return isDone;
 }
 
-void AbstractFirework::draw()
+void AbstractFirework::updateData()
+{
+}
+
+int AbstractFirework::draw()
 {
 	glColor3d(r, g, b);
 	if (isLaunched)
@@ -122,4 +131,5 @@ void AbstractFirework::draw()
 			(*p)->draw();
 		}
 	}
+	return 1;
 }

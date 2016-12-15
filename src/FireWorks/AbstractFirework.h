@@ -18,16 +18,17 @@ public:
 	double r, g, b, a;
 
 	explicit AbstractFirework();
+	~AbstractFirework();
 
 	virtual void explode() = 0;
+	virtual int draw();
+	virtual void updateData();
 
 	void initialise();
 	void tick();
 	void applyForce(double fx, double fy, double fz);	
-	void move();
-	void draw();
-	bool done();
-	
+	void move();	
+	bool done();	
 
 	static const double GRAVITY;
 
@@ -47,6 +48,9 @@ protected:
 	int delayBeforeLaunch;
 	int delayBeforeExplosion;
 	bool isLaunched, isExploding, isDone;
+
+	GLuint m_vboID;
+	double* m_vertices;
 
 	std::vector<std::unique_ptr<AbstractParticle>> particules;
 };

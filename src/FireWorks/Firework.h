@@ -8,13 +8,20 @@
 #include <vector>
 #include <src\Particles\Particle.h>
 #include <src\Fireworks\AbstractFirework.h>
+#include <src/Tweeks/openGLGetErrors.h>
+#include <src/Modes/DemoMode.h>
 
 class Firework : public AbstractFirework
 {
 	using AbstractFirework::AbstractFirework;
+	~Firework();
 
 	public:
 		void explode();
+		int draw();
+		void updateData();
+
+	private:
 };
 
 #endif

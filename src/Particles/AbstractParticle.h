@@ -17,7 +17,6 @@ class AbstractParticle {
 		virtual void tick();
 		virtual bool done();
 
-	protected:
 		double x;
 		double y;
 		double z;

@@ -18,13 +18,16 @@ DemoMode::DemoMode():
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new SphereFirework)));*/
 }
 
-void DemoMode::drawScene()
+int DemoMode::drawScene()
 {
+	int nbParticules = 0;
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	for(auto fw(vect_fw.begin()), ite(vect_fw.end()); fw != ite; ++fw) {
-		(*fw)->draw();
-	}	
+		nbParticules += (*fw)->draw();
+	}		
+	openGLGetErrors();
+	return nbParticules;
 }
 
 void DemoMode::drawTest() {
@@ -45,6 +48,7 @@ void DemoMode::update()
 		
 	for (auto fw(vect_fw.begin()), ite(vect_fw.end()); fw != ite; fw++) {
 		(*fw)->tick();
+		(*fw)->updateData();
 		(*fw)->move();
 		(*fw)->applyForce(0.0, AbstractFirework::GRAVITY, 0.0);	
 	}
@@ -104,8 +108,11 @@ void DemoMode::addRandomFireworks() {
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
 	else if (r < 0.04)
 		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new BoxFirework)));
-	else */if (r < 0.05)
-		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));
+	else if (r < 0.05)
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new ExplosiveFirework())));*/
+
+	if (r < 0.1)
+		vect_fw.push_back(std::move(std::unique_ptr<AbstractFirework>(new Firework)));
 
 	for (unsigned int i = 0; i < vect_fw.size(); i++) {
 		if (vect_fw.at(i)->done()) {

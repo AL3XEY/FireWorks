@@ -3,11 +3,12 @@
 
 // Constructor
 SDL_GLEW_Window::SDL_GLEW_Window(std::string titreFenetre, int largeurFenetre, int hauteurFenetre) :
-	m_titreFenetre(titreFenetre), 
+	m_titreFenetre(titreFenetre),
 	m_largeurFenetre(largeurFenetre),
-	m_hauteurFenetre(hauteurFenetre), 
+	m_hauteurFenetre(hauteurFenetre),
 	m_window(0),
-	m_contexteOpenGL(0) {
+	m_contexteOpenGL(0),
+	ticksBeforeUpdateMetrics(ticksBeetweenMetricsUpdate) {
 }
 
 // Destructor
@@ -123,8 +124,17 @@ void SDL_GLEW_Window::bouclePrincipale()
 		}
 
 		// Rendering
-		demoMode.drawScene();
-		//drawTest();
+		int nbParticules = demoMode.drawScene();
+		
+		// Affichage des metriques (fps, nbParticules)
+		int tick = SDL_GetTicks();
+		double fps = double(1.0 / double(double(tick) - double(clock))) * 1000.0;
+		if (ticksBeforeUpdateMetrics == 0) {
+			std::cout << "fps: " << int(fps) << "\t\tparticules: " << nbParticules << std::endl;
+			ticksBeforeUpdateMetrics = ticksBeetweenMetricsUpdate;
+		}
+		ticksBeforeUpdateMetrics--;
+			
 
 
 		// Actualisation de la fenêtre
