@@ -1,14 +1,12 @@
-#version 410
+#version 310
  
-in vec3 position;
- 
-out VertexData {
-    vec3 position;
-} VertexOut;
+in vec3 speed;
  
 void main()
-{
-    VertexOut.texCoord = texCoord;
-    VertexOut.normal = normalize(normalMatrix * normal);    
-    gl_Position = projModelViewMatrix * vec4(position, 1.0);
+{  
+    vec4 pos = gl_Vertex;
+    pos.x = pos.x * 0.5;
+    pos.y = pos.y * 0.5;
+    
+    gl_position = gl_ModelViewProjectionMatrix * pos;
 }
